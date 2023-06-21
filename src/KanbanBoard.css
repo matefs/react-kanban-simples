@@ -1,32 +1,72 @@
 .kanban-board {
   display: flex;
   justify-content: space-between;
+  margin: 20px;
 }
 
 .column {
   flex: 1;
-  margin: 10px;
+  margin: 0 10px;
   padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.column h3 {
+  margin-top: 0;
+  font-family: 'Helvetica', sans-serif;
 }
 
 .card-container {
   min-height: 100px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-top: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .card {
-  margin-bottom: 8px;
-  padding: 8px;
   background-color: #fff;
+  padding: 5px;
+  margin-bottom: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: move;
 }
 
-h3 {
-  margin-top: 0;
+.new-card-form {
+  margin-top: 10px;
+}
+
+.new-card-form input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.new-card-form button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.new-column-form {
+  margin-top: 20px;
+}
+
+.new-column-form input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.new-column-form button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
