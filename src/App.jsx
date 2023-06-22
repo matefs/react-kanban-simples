@@ -68,6 +68,8 @@ const KanbanBoard = () => {
   };
 
   return (
+    <>
+    <h1>Kanban</h1>
     <div className="kanban-board">
       {columns.map((column) => (
         <div key={column.id} className="column">
@@ -81,10 +83,10 @@ const KanbanBoard = () => {
               .filter((card) => card.column === column.title)
               .map((card) => (
                 <div
-                  key={card.id}
-                  className="card"
-                  draggable
-                  onDragStart={(event) => handleDragStart(event, card.id)}
+                key={card.id}
+                className="card"
+                draggable
+                onDragStart={(event) => handleDragStart(event, card.id)}
                 >
                   {card.title}
                 </div>
@@ -92,14 +94,14 @@ const KanbanBoard = () => {
             <form
               className="new-card-form"
               onSubmit={(event) => handleFormSubmit(event, column.title)}
-            >
+              >
               <input
                 type="text"
                 name="cardTitle"
                 placeholder="Digite o título do card"
                 required
               />
-              <button type="submit">Adicionar Card</button>
+              <button type="submit">Adicionar Card</button> 
             </form>
           </div>
         </div>
@@ -110,10 +112,11 @@ const KanbanBoard = () => {
           name="columnTitle"
           placeholder="Digite o título da coluna"
           required
-        />
+          />
         <button type="submit">Adicionar Coluna</button>
       </form>
     </div>
+          </>
   );
 };
 
