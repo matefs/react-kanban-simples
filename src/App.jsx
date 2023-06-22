@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import './KanbanBoard.css';
 
+/* 
+Requisitos MVP:   
+- 3 Colunas padrão 
+- Criar card em qualquer coluna
+- Poder Apagar cards
+- Poder editar o card
+- Ordenar indice dos cards dentro da coluna 
+- Poder excluir nova coluna criada
+*/
+
 const KanbanBoard = () => {
   const [cards, setCards] = useState([
     { id: 1, title: 'Card 1', column: 'Para Fazer' },
