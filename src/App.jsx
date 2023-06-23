@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import './KanbanBoard.css';
-
-/* 
-Requisitos MVP:   
-- 3 Colunas padrão 
-- Criar card em qualquer coluna
-- Poder Apagar cards
-- Poder editar o card
-- Ordenar indice dos cards dentro da coluna 
-- Poder excluir nova coluna criada
-*/
+import { Card, Col, Form, Input, Row } from 'antd';
 
 const KanbanBoard = () => {
   const [cards, setCards] = useState([
@@ -35,88 +25,74 @@ const KanbanBoard = () => {
 
   const handleDrop = (event, column) => {
     const cardId = event.dataTransfer.getData('text/plain');
-    const updatedCards = cards.map((card) => {
-      if (card.id === Number(cardId)) {
-        return { ...card, column };
-      }
-      return card;
-    });
+    const updatedCards = cards.map((card) =>
+      card.id === Number(cardId) ? { ...card, column } : card
+    );
     setCards(updatedCards);
   };
 
-  const handleFormSubmit = (event, column) => {
-    event.preventDefault();
-    const newCardTitle = event.target.elements.cardTitle.value;
+  const handleFormSubmit = (values, column) => {
     const newCard = {
       id: Date.now(),
-      title: newCardTitle,
+      title: values.cardTitle,
       column: column,
     };
     setCards([...cards, newCard]);
-    event.target.reset();
   };
 
-  const handleAddColumn = (event) => {
-    event.preventDefault();
-    const newColumnTitle = event.target.elements.columnTitle.value;
+  const handleAddColumn = (values) => {
     const newColumn = {
       id: Date.now(),
-      title: newColumnTitle,
+      title: values.columnTitle,
     };
     setColumns([...columns, newColumn]);
-    event.target.reset();
   };
 
   return (
     <>
-    <h1>Kanban</h1>
-    <div className="kanban-board">
-      {columns.map((column) => (
-        <div key={column.id} className="column">
-          <h3>{column.title}</h3>
-          <div
-            className="card-container"
-            onDragOver={(event) => handleDragOver(event)}
-            onDrop={(event) => handleDrop(event, column.title)}
-          >
-            {cards
-              .filter((card) => card.column === column.title)
-              .map((card) => (
-                <div
-                key={card.id}
-                className="card"
-                draggable
-                onDragStart={(event) => handleDragStart(event, card.id)}
-                >
-                  {card.title}
-                </div>
-              ))}
-            <form
-              className="new-card-form"
-              onSubmit={(event) => handleFormSubmit(event, column.title)}
+      <h1>Kanban</h1>
+      <Row gutter={16} className="kanban-board">
+        {columns.map((column) => (
+          <Col key={column.id} span={6}>
+            <Card title={column.title} className="column">
+              <div
+                className="card-container"
+                onDragOver={handleDragOver}
+                onDrop={(event) => handleDrop(event, column.title)}
               >
-              <input
-                type="text"
-                name="cardTitle"
-                placeholder="Digite o título do card"
-                required
-              />
-              <button type="submit">Adicionar Card</button> 
-            </form>
-          </div>
-        </div>
-      ))}
-      <form className="new-column-form" onSubmit={handleAddColumn}>
-        <input
-          type="text"
-          name="columnTitle"
-          placeholder="Digite o título da coluna"
-          required
-          />
-        <button type="submit">Adicionar Coluna</button>
-      </form>
-    </div>
-          </>
+                {cards
+                  .filter((card) => card.column === column.title)
+                  .map((card) => (
+                    <Card
+                      key={card.id}
+                      className="card"
+                      draggable
+                      onDragStart={(event) => handleDragStart(event, card.id)}
+                    >
+                      {card.title}
+                    </Card>
+                  ))}
+                <Form
+                  className="new-card-form"
+                  onFinish={(values) => handleFormSubmit(values, column.title)}
+                >
+                  <Form.Item name="cardTitle" rules={[{ required: true }]}>
+                    <Input placeholder="Digite o título do card" />
+                  </Form.Item>
+                  <button type="submit">Adicionar Card</button>
+                </Form>
+              </div>
+            </Card>
+          </Col>
+        ))}
+        <Form onFinish={handleAddColumn}>
+          <Form.Item name="columnTitle" rules={[{ required: true }]}>
+            <Input placeholder="Digite o título da coluna" />
+          </Form.Item>
+          <button type="submit">Adicionar Coluna</button>
+        </Form>
+      </Row>
+    </>
   );
 };
 
