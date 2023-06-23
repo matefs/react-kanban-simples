@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Col, Form, Input, Row } from 'antd';
+import { Card, Col, Form, Input, Row, Button } from 'antd';
 import { Typography } from 'antd';
 const { Title } = Typography;
 
@@ -81,7 +81,7 @@ const KanbanBoard = () => {
                   <Form.Item name="cardTitle" rules={[{ required: true }]}>
                     <Input placeholder="Digite o título do card" />
                   </Form.Item>
-                  <button type="submit">Adicionar Card</button>
+                  <Button type="primary" htmlType='submit'>Adicionar Card</Button>
                 </Form>
               </div>
             </Card>
@@ -91,7 +91,7 @@ const KanbanBoard = () => {
           <Form.Item name="columnTitle" rules={[{ required: true }]}>
             <Input placeholder="Digite o título da coluna" />
           </Form.Item>
-          <button type="submit">Adicionar Coluna</button>
+          <Button type="link" htmlType='submit'>Adicionar Coluna</Button>
         </Form>
       </Row>
     </>
