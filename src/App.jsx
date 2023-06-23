@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import { Card, Col, Form, Input, Row, Button, Space} from 'antd';
-import { Typography } from 'antd';
+import React, { useState } from "react";
+import { Card, Col, Form, Input, Row, Button, Space } from "antd";
+import { Typography } from "antd";
+import { DeleteOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 
 const KanbanBoard = () => {
   const [cards, setCards] = useState([
-    { id: 1, title: 'Card 1', column: 'Para Fazer' },
-    { id: 2, title: 'Card 2', column: 'Para Fazer' },
-    { id: 3, title: 'Card 3', column: 'Fazendo' },
-    { id: 4, title: 'Card 4', column: 'Feito' },
+    { id: 1, title: "Card 1", column: "Para Fazer" },
+    { id: 2, title: "Card 2", column: "Para Fazer" },
+    { id: 3, title: "Card 3", column: "Fazendo" },
+    { id: 4, title: "Card 4", column: "Feito" },
   ]);
 
   const [columns, setColumns] = useState([
-    { id: 1, title: 'Para Fazer' },
-    { id: 2, title: 'Fazendo' },
-    { id: 3, title: 'Feito' },
+    { id: 1, title: "Para Fazer" },
+    { id: 2, title: "Fazendo" },
+    { id: 3, title: "Feito" },
   ]);
 
   const handleDragStart = (event, cardId) => {
-    event.dataTransfer.setData('text/plain', cardId);
+    event.dataTransfer.setData("text/plain", cardId);
   };
 
   const handleDragOver = (event) => {
@@ -26,7 +27,7 @@ const KanbanBoard = () => {
   };
 
   const handleDrop = (event, column) => {
-    const cardId = event.dataTransfer.getData('text/plain');
+    const cardId = event.dataTransfer.getData("text/plain");
     const updatedCards = cards.map((card) =>
       card.id === Number(cardId) ? { ...card, column } : card
     );
@@ -54,7 +55,6 @@ const KanbanBoard = () => {
     <>
       <Title>Kanban</Title>
       <Row gutter={16} className="kanban-board">
-
         {columns.map((column) => (
           <Col key={column.id} span={6}>
             <Card title={column.title} className="column">
@@ -63,47 +63,67 @@ const KanbanBoard = () => {
                 onDragOver={handleDragOver}
                 onDrop={(event) => handleDrop(event, column.title)}
               >
-            <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                {cards
-                  .filter((card) => card.column === column.title)
-                  .map((card) => (
-                    <Card
-                      key={card.id}
-                      className="card"
-                      draggable
-                      onDragStart={(event) => handleDragStart(event, card.id)}
-                      style={{boxShadow:'0px 0px 10px rgba(0,0,0,.2)'}} 
-                    >
-                      {card.title}
-                    </Card>
-                  ))}
-                  </Space>
+                <Space
+                  direction="vertical"
+                  size="middle"
+                  style={{ display: "flex" }}
+                >
+                  {cards
+                    .filter((card) => card.column === column.title)
+                    .map((card) => (
+                      <Row gutter={3} key={card.id}>
+                        <Col flex="auto">
+                          <Card
+                            className="card"
+                            draggable
+                            onDragStart={(event) =>
+                              handleDragStart(event, card.id)
+                            }
+                            style={{
+                              boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)",
+                            }}
+                          >
+                            {card.title}
+                          </Card>
+                        </Col>
+                        <Col>
+                          <Button 
+                          type="text"
+                          onClick={() => console.log(1)}
+                          style={{marginTop:'15px',borderRadius:'50px'}}
+                          >
+                            <DeleteOutlined />
+                          </Button>
+                        </Col>
+                      </Row>
+                    ))}
+                </Space>
 
                 <Form
                   className="new-card-form"
                   onFinish={(values) => handleFormSubmit(values, column.title)}
-                  style={{marginTop:'4%'}}
-                  >
+                  style={{ marginTop: "4%" }}
+                >
                   <Form.Item name="cardTitle" rules={[{ required: true }]}>
                     <Input placeholder="Digite o título do card" />
                   </Form.Item>
-                  <Button type="primary" htmlType='submit'>Adicionar Card</Button>
+                  <Button type="primary" htmlType="submit">
+                    Adicionar Card
+                  </Button>
                 </Form>
-
-
               </div>
             </Card>
           </Col>
         ))}
 
-
-        <Form onFinish={handleAddColumn} style={{marginLeft:'1.4%'}}>
+        <Form onFinish={handleAddColumn} style={{ marginLeft: "1.4%" }}>
           <Form.Item name="columnTitle" rules={[{ required: true }]}>
             <Input placeholder="Digite o título da coluna" />
           </Form.Item>
-          <Button type="link" htmlType='submit'>Adicionar Coluna</Button>
+          <Button type="link" htmlType="submit">
+            Adicionar Coluna
+          </Button>
         </Form>
-
       </Row>
     </>
   );
