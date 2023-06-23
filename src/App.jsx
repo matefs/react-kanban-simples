@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Col, Form, Input, Row } from 'antd';
+import { Typography } from 'antd';
+const { Title } = Typography;
 
 const KanbanBoard = () => {
   const [cards, setCards] = useState([
@@ -50,7 +52,7 @@ const KanbanBoard = () => {
 
   return (
     <>
-      <h1>Kanban</h1>
+      <Title>Kanban</Title>
       <Row gutter={16} className="kanban-board">
         {columns.map((column) => (
           <Col key={column.id} span={6}>
