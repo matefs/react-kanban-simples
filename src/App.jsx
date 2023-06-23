@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Col, Form, Input, Row, Button, Space } from "antd";
 import { Typography } from "antd";
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 const KanbanBoard = () => {
@@ -40,8 +40,7 @@ const KanbanBoard = () => {
       title: values.cardTitle,
       column: column,
     };
-    setCards([...cards, newCard]); 
-
+    setCards([...cards, newCard]);
   };
 
   const handleAddColumn = (values) => {
@@ -53,8 +52,8 @@ const KanbanBoard = () => {
   };
 
   const handleCardDelete = (values) => {
-    setCards(cards.filter((card) => card != values) )
-  }
+    setCards(cards.filter((card) => card != values));
+  };
 
   return (
     <>
@@ -76,32 +75,19 @@ const KanbanBoard = () => {
                   {cards
                     .filter((card) => card.column === column.title)
                     .map((card) => (
-                      <Row gutter={3} key={card.id}>
-                        <Col flex="auto">
-                          <Card
-                            className="card"
-                            draggable
-                            onDragStart={(event) =>
-                              handleDragStart(event, card.id)
-                            }
-                            style={{
-                              boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)",
-                            }}
-                          >
-                            {card.title}
-                          </Card>
-                        </Col>
-                        <Col>
-                          <Button 
-                          type="text"
+                      <Card
+                        key={card.id}
+                        className="card"
+                        draggable
+                        onDragStart={(event) => handleDragStart(event, card.id)}
+                        style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)" }}
+                      >
+                        <span>{card.title}</span>
+                        <DeleteOutlined
                           onClick={() => handleCardDelete(card)}
-                          style={{marginTop:'15px',borderRadius:'50px'}}
-                          >
-                            <DeleteOutlined />
-                          </Button>
-                        </Col>
-                        
-                      </Row>
+                          style={{ float: "right" }}
+                        />
+                      </Card>
                     ))}
                 </Space>
 
