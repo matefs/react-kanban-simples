@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Card, Col, Form, Input, Row, Button, Space } from "antd";
+import { Card, Col, Form, Input, Row, Button, Space} from "antd";
 import { Typography } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import ModalEditarCard from "./componentes/ModalEditarCard";
 const { Title } = Typography;
 
 const KanbanBoard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [cardToEdit, setCardToEdit] = useState(null);
+
   const [cards, setCards] = useState([
     { id: 1, title: "Card 1", column: "Para Fazer" },
     { id: 2, title: "Card 2", column: "Para Fazer" },
@@ -55,10 +60,25 @@ const KanbanBoard = () => {
     setCards(cards.filter((card) => card != values));
   };
 
+
+  const handleCardEdit = (values) => {
+    setCardToEdit(values)
+    setIsModalOpen(true);
+  }
+
+  const handleOk = () => {
+    console.log(cardToEdit)
+    setIsModalOpen(false)
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Title>Kanban</Title>
-      <Row gutter={16} className="kanban-board">
+      <Row gutter={[16,16]} className="kanban-board">
         {columns.map((column) => (
           <Col key={column.id} span={6}>
             <Card title={column.title} className="column">
@@ -80,7 +100,8 @@ const KanbanBoard = () => {
                         className="card"
                         draggable
                         onDragStart={(event) => handleDragStart(event, card.id)}
-                        style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)" }}
+                        style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)", cursor:'pointer' }}
+                        onClick={() => handleCardEdit(card)}
                       >
                         <span>{card.title}</span>
                         <DeleteOutlined
@@ -117,6 +138,8 @@ const KanbanBoard = () => {
           </Button>
         </Form>
       </Row>
+
+      <ModalEditarCard isModalOpen={isModalOpen} handleOk={() => handleOk(cardToEdit)} handleCancel={handleCancel} card={cardToEdit}/>
     </>
   );
 };
