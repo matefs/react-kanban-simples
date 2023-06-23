@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Col, Form, Input, Row, Button } from 'antd';
+import { Card, Col, Form, Input, Row, Button, Space} from 'antd';
 import { Typography } from 'antd';
 const { Title } = Typography;
 
@@ -54,6 +54,7 @@ const KanbanBoard = () => {
     <>
       <Title>Kanban</Title>
       <Row gutter={16} className="kanban-board">
+
         {columns.map((column) => (
           <Col key={column.id} span={6}>
             <Card title={column.title} className="column">
@@ -62,6 +63,7 @@ const KanbanBoard = () => {
                 onDragOver={handleDragOver}
                 onDrop={(event) => handleDrop(event, column.title)}
               >
+            <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
                 {cards
                   .filter((card) => card.column === column.title)
                   .map((card) => (
@@ -74,6 +76,8 @@ const KanbanBoard = () => {
                       {card.title}
                     </Card>
                   ))}
+                  </Space>
+
                 <Form
                   className="new-card-form"
                   onFinish={(values) => handleFormSubmit(values, column.title)}
@@ -87,6 +91,8 @@ const KanbanBoard = () => {
             </Card>
           </Col>
         ))}
+
+        
         <Form onFinish={handleAddColumn}>
           <Form.Item name="columnTitle" rules={[{ required: true }]}>
             <Input placeholder="Digite o título da coluna" />
