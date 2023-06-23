@@ -82,7 +82,7 @@ const KanbanBoard = () => {
                 <Form
                   className="new-card-form"
                   onFinish={(values) => handleFormSubmit(values, column.title)}
-                  style={{marginTop:'2%'}}
+                  style={{marginTop:'4%'}}
                   >
                   <Form.Item name="cardTitle" rules={[{ required: true }]}>
                     <Input placeholder="Digite o título do card" />
