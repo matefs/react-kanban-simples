@@ -72,6 +72,7 @@ const KanbanBoard = () => {
                       className="card"
                       draggable
                       onDragStart={(event) => handleDragStart(event, card.id)}
+                      style={{boxShadow:'3px 3px 3px rgba(0,0,0,.2)'}} 
                     >
                       {card.title}
                     </Card>
@@ -81,12 +82,15 @@ const KanbanBoard = () => {
                 <Form
                   className="new-card-form"
                   onFinish={(values) => handleFormSubmit(values, column.title)}
+                  style={{marginTop:'2%'}}
                   >
                   <Form.Item name="cardTitle" rules={[{ required: true }]}>
                     <Input placeholder="Digite o título do card" />
                   </Form.Item>
                   <Button type="primary" htmlType='submit'>Adicionar Card</Button>
                 </Form>
+
+
               </div>
             </Card>
           </Col>
