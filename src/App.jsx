@@ -40,7 +40,8 @@ const KanbanBoard = () => {
       title: values.cardTitle,
       column: column,
     };
-    setCards([...cards, newCard]);
+    setCards([...cards, newCard]); 
+
   };
 
   const handleAddColumn = (values) => {
@@ -50,6 +51,10 @@ const KanbanBoard = () => {
     };
     setColumns([...columns, newColumn]);
   };
+
+  const handleCardDelete = (values) => {
+    setCards(cards.filter((card) => card != values) )
+  }
 
   return (
     <>
@@ -89,12 +94,13 @@ const KanbanBoard = () => {
                         <Col>
                           <Button 
                           type="text"
-                          onClick={() => console.log(1)}
+                          onClick={() => handleCardDelete(card)}
                           style={{marginTop:'15px',borderRadius:'50px'}}
                           >
                             <DeleteOutlined />
                           </Button>
                         </Col>
+                        
                       </Row>
                     ))}
                 </Space>
