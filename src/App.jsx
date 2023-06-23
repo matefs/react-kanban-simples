@@ -81,7 +81,7 @@ const KanbanBoard = () => {
                 <Form
                   className="new-card-form"
                   onFinish={(values) => handleFormSubmit(values, column.title)}
-                >
+                  >
                   <Form.Item name="cardTitle" rules={[{ required: true }]}>
                     <Input placeholder="Digite o título do card" />
                   </Form.Item>
@@ -92,13 +92,14 @@ const KanbanBoard = () => {
           </Col>
         ))}
 
-        
-        <Form onFinish={handleAddColumn}>
+
+        <Form onFinish={handleAddColumn} style={{marginLeft:'1.4%'}}>
           <Form.Item name="columnTitle" rules={[{ required: true }]}>
             <Input placeholder="Digite o título da coluna" />
           </Form.Item>
           <Button type="link" htmlType='submit'>Adicionar Coluna</Button>
         </Form>
+
       </Row>
     </>
   );
