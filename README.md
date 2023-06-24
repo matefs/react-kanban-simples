@@ -1,13 +1,9 @@
-
-
 # **React Kanban Simples**
  
 
 Este repositório contém um projeto de um Kanban Board simples desenvolvido com React. O Kanban Board é uma ferramenta de gerenciamento de projetos que permite visualizar e organizar tarefas em diferentes estágios de progresso.
 
- ![gif para o repo](https://github.com/matefs/react-kanban-simples/assets/30128774/3cb85e67-b652-4cf1-a63d-8bafb35f283e)
-
-
+![gif para o repo](https://github.com/matefs/react-kanban-simples/assets/30128774/3cb85e67-b652-4cf1-a63d-8bafb35f283e)
 
 ## **Visão Geral**
 
@@ -21,6 +17,19 @@ O projeto possui as seguintes funcionalidades:
 - Adicionar, editar e excluir tarefas em cada coluna
 - Arrastar e soltar tarefas entre as colunas para atualizar seu status
 - Responsividade para se adaptar a diferentes tamanhos de tela
+ 
+ 
+## Tecnologias Utilizadas
+
+Este repositório utiliza as seguintes tecnologias:
+
+- :atom_symbol: [React](https://reactjs.org/): Uma biblioteca JavaScript de código aberto para construir interfaces de usuário.
+- :diamond_shape_with_a_dot_inside: [Ant Design](https://ant.design/): Uma biblioteca de componentes de interface de usuário para React que fornece um conjunto de componentes prontos para uso, estilos predefinidos e um sistema de layout responsivo.
+- :art: [Ant Design Icons](https://ant.design/components/icon/): Um conjunto de ícones de alta qualidade disponibilizados pela biblioteca Ant Design.
+- :zap: [Vite](https://vitejs.dev/): Uma ferramenta de compilação rápida para projetos front-end.
+
+
+
 
 ## **Instalação**
 
@@ -88,9 +97,9 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 
 ## **Licença**
 
-Este projeto está licenciado sob a licença MIT. Para mais informações, consulte o arquivo LICENSE.
+Este projeto não tem licença.
+
 
 ## **Agradecimentos**
 
-- **[React](https://reactjs.org/)** - Biblioteca JavaScript para construir interfaces de usuário.
-- **[Vite](https://vitejs.dev/)** - Ferramenta de compilação rápida para projetos front-end.
+- Deus seja louvado.
