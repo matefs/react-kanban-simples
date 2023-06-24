@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Input } from 'antd';
+import { Tag } from 'antd';
+import { TagFilled } from '@ant-design/icons';
+import { Typography } from 'antd';
 
+const { Text  } = Typography;
 
 const ModalEditarCard = ({ isModalOpen, handleOk, handleCancel, card }) => {
-  const [title, setTitle] = useState(card?.title);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+  if (card) {
+    setTitle(card.title);
+  }
+  }, [card]);
+ 
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -14,12 +25,12 @@ const ModalEditarCard = ({ isModalOpen, handleOk, handleCancel, card }) => {
   }
 
   return (
-    <Modal title="Editar Card" visible={isModalOpen} onOk={() => handleOk(card.id, title)} onCancel={handleCancel}>
-      <p>
+     <Modal title="Editar Card" visible={isModalOpen} onOk={() => handleOk(card.id, title)} onCancel={handleCancel}>
+     <Text>
         Escreva a nova descrição para o card: 
         <Input value={title} onChange={handleTitleChange} />
-      </p>
-      <p>Column: {card.column}</p>
+      </Text>
+      <Tag color='processing' icon={<TagFilled />} style={{ marginTop: '16px' }}>Coluna: {card.column}</Tag>
     </Modal>
   );
 };

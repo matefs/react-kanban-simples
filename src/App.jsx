@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, Col, Form, Input, Row, Button, Space} from "antd";
+import React, { useState,  useEffect} from "react";
+import { Card, Col, Form, Input, Row, Button, Space } from "antd";
 import { Typography } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import ModalEditarCard from "./componentes/ModalEditarCard";
@@ -66,14 +66,22 @@ const KanbanBoard = () => {
     setIsModalOpen(true);
   }
 
-  const handleOk = () => {
-    console.log(cardToEdit)
-    setIsModalOpen(false)
-  };
+  const handleOk = (cardId, newTitle) => {
+  setCards((cards) =>
+    cards.map((card) => (card.id === cardId ? { ...card, title: newTitle } : card))
+  );
+  setIsModalOpen(false);
+};
+
+
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+
+useEffect(() => {
+}, [cards]);
 
   return (
     <>
@@ -117,7 +125,7 @@ const KanbanBoard = () => {
                   onFinish={(values) => handleFormSubmit(values, column.title)}
                   style={{ marginTop: "4%" }}
                 >
-                  <Form.Item name="cardTitle" rules={[{ required: true }]}>
+                  <Form.Item name="cardTitle">
                     <Input placeholder="Digite o título do card" />
                   </Form.Item>
                   <Button type="primary" htmlType="submit">
@@ -139,7 +147,13 @@ const KanbanBoard = () => {
         </Form>
       </Row>
 
-      <ModalEditarCard isModalOpen={isModalOpen} handleOk={() => handleOk(cardToEdit)} handleCancel={handleCancel} card={cardToEdit}/>
+<ModalEditarCard
+  isModalOpen={isModalOpen}
+  handleOk={handleOk} // Remove a função anônima aqui
+  handleCancel={handleCancel}
+  card={cardToEdit}
+/>
+
     </>
   );
 };
