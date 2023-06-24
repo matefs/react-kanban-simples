@@ -17,14 +17,18 @@ O projeto possui as seguintes funcionalidades:
 - Adicionar, editar e excluir tarefas em cada coluna
 - Arrastar e soltar tarefas entre as colunas para atualizar seu status
 - Responsividade para se adaptar a diferentes tamanhos de tela
-
+ 
+ 
 ## Tecnologias Utilizadas
 
 Este repositório utiliza as seguintes tecnologias:
 
-- [React](https://reactjs.org/) 🚀: Uma biblioteca JavaScript de código aberto para construir interfaces de usuário.
-- [Ant Design](https://ant.design/) 🎨: Uma biblioteca de componentes de interface de usuário para React que fornece um conjunto de componentes prontos para uso, estilos predefinidos e um sistema de layout responsivo.
-- [Ant Design Icons](https://ant.design/components/icon/) 🔍: Um conjunto de ícones de alta qualidade disponibilizados pela biblioteca Ant Design.
+- :atom_symbol: [React](https://reactjs.org/): Uma biblioteca JavaScript de código aberto para construir interfaces de usuário.
+- :diamond_shape_with_a_dot_inside: [Ant Design](https://ant.design/): Uma biblioteca de componentes de interface de usuário para React que fornece um conjunto de componentes prontos para uso, estilos predefinidos e um sistema de layout responsivo.
+- :art: [Ant Design Icons](https://ant.design/components/icon/): Um conjunto de ícones de alta qualidade disponibilizados pela biblioteca Ant Design.
+- :zap: [Vite](https://vitejs.dev/): Uma ferramenta de compilação rápida para projetos front-end.
+
+
 
 
 ## **Instalação**
