@@ -97,7 +97,8 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 
 ## **Licença**
 
-Este projeto está licenciado sob a licença MIT. Para mais informações, consulte o arquivo LICENSE.
+Este projeto não tem licença.
+
 
 ## **Agradecimentos**
 
