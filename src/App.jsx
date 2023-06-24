@@ -85,7 +85,7 @@ useEffect(() => {
 
   return (
     <>
-      <Title>Kanban</Title>
+      <Title>Quadro Kanban</Title>
       <Row gutter={16} className="kanban-board">
         {columns.map((column) => (
           <Col key={column.id} span={6}>
