@@ -27,7 +27,7 @@ const ModalEditarCard = ({ isModalOpen, handleOk, handleCancel, card }) => {
   return (
      <Modal title="Editar Card" visible={isModalOpen} onOk={() => handleOk(card.id, title)} onCancel={handleCancel}>
      <Text>
-        Escreva a nova descrição para o card: 
+        Escreva um novo título para o card: 
         <Input value={title} onChange={handleTitleChange} />
       </Text>
       <Tag color='processing' icon={<TagFilled />} style={{ marginTop: '16px' }}>Coluna: {card.column}</Tag>

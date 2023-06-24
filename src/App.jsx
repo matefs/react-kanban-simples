@@ -86,7 +86,7 @@ useEffect(() => {
   return (
     <>
       <Title>Kanban</Title>
-      <Row gutter={[16,16]} className="kanban-board">
+      <Row gutter={16} className="kanban-board">
         {columns.map((column) => (
           <Col key={column.id} span={6}>
             <Card title={column.title} className="column">
@@ -102,22 +102,42 @@ useEffect(() => {
                 >
                   {cards
                     .filter((card) => card.column === column.title)
-                    .map((card) => (
-                      <Card
-                        key={card.id}
-                        className="card"
-                        draggable
-                        onDragStart={(event) => handleDragStart(event, card.id)}
-                        style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, .2)", cursor:'pointer' }}
-                        onClick={() => handleCardEdit(card)}
-                      >
-                        <span>{card.title}</span>
-                        <DeleteOutlined
-                          onClick={() => handleCardDelete(card)}
-                          style={{ float: "right" }}
-                        />
-                      </Card>
-                    ))}
+
+.map((card,index) => (
+<div key={index} style={{ 
+      boxShadow: '0px 0px 21px rgba(0, 0, 0, .2)', 
+      borderRadius: '30px',
+      cursor: 'pointer',
+ }}
+       draggable
+      onDragStart={(event) => handleDragStart(event, card.id)}
+ >
+
+  <div
+    className="card-wrapper"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      width: '100%',
+    }}
+  >
+    <Card
+      key={card.id}
+      className="card"
+
+      style={{cursor: 'pointer',width: '100%'}}
+      onClick={() => handleCardEdit(card)}
+    />
+    <span style={{position:'absolute', padding: '20px'}}>{card.title}</span>
+    <DeleteOutlined
+      onClick={() => handleCardDelete(card)}
+      style={{ float: 'right', position:'absolute', margin: '0 78%' }}
+    />
+  </div>
+</div>
+
+))}
                 </Space>
 
                 <Form
