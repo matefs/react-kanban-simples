@@ -157,8 +157,8 @@ useEffect(() => {
           </Col>
         ))}
 
-        <Form onFinish={handleAddColumn} style={{ marginLeft: "1.4%" }}>
-          <Form.Item name="columnTitle" rules={[{ required: true }]}>
+        <Form onFinish={handleAddColumn} style={{ marginLeft: "1.4%" }} >
+          <Form.Item name="columnTitle" >
             <Input placeholder="Digite o título da coluna" />
           </Form.Item>
           <Button type="link" htmlType="submit">
