@@ -101,5 +101,4 @@ Este projeto está licenciado sob a licença MIT. Para mais informações, consu
 
 ## **Agradecimentos**
 
-- **[React](https://reactjs.org/)** - Biblioteca JavaScript para construir interfaces de usuário.
-- **[Vite](https://vitejs.dev/)** - Ferramenta de compilação rápida para projetos front-end.
+- Deus seja louvado.
