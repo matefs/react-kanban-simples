@@ -160,7 +160,7 @@ const KanbanBoard = () => {
           style={{ marginLeft: "1.4%" }}
         >
           <Form.Item name="columnTitle">
-            <Input placeholder="Digite o título da coluna" name="addColumn" />
+            <Input placeholder="Digite o título da coluna" name="addColumn" maxLength={35} />
           </Form.Item>
           <Button type="link" htmlType="submit">
             Adicionar Coluna
