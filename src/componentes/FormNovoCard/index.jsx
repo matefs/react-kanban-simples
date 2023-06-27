@@ -18,7 +18,7 @@ const NewCardForm = ({ handleFormSubmit, columnTitle }) => {
       form={form}
     >
       <Form.Item name="cardTitle">
-        <Input name="card" placeholder="Digite o título do card" />
+        <Input name="card" placeholder="Digite o título do card" maxLength={65}/>
       </Form.Item>
       <Button type="primary" htmlType="submit">
         Adicionar Card
