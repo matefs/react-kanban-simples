@@ -13,7 +13,7 @@ const NewCardForm = ({ handleFormSubmit, columnTitle }) => {
     <Form
       className="new-card-form"
       onFinish={onFinish}
-      style={{ marginTop: '4%' }}
+      style={{ marginTop: '4%', cursor:'pointer'}}
       initialValues={{ card: '' }}
       form={form}
     >

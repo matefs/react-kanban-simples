@@ -81,6 +81,7 @@ const KanbanBoard = () => {
     setIsModalOpen(false);
   };
 
+
   return (
     <>
       <Title>Quadro Kanban</Title>
