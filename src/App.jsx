@@ -138,8 +138,9 @@ const KanbanBoard = () => {
                             onClick={() => handleCardDelete(card)}
                             style={{ 
                               position: "absolute",
-                              margin: "0 78%",
+                              margin: "0 75%",
                               cursor:'pointer', 
+                              padding: '10px',
                             }}
                           />
                         </div>
@@ -172,7 +173,7 @@ const KanbanBoard = () => {
 
       <ModalEditarCard
         isModalOpen={isModalOpen}
-        handleOk={handleOk} // Remove a função anônima aqui
+        handleOk={handleOk}
         handleCancel={handleCancel}
         card={cardToEdit}
       />
