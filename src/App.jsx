@@ -108,7 +108,7 @@ const KanbanBoard = () => {
                         style={{
                           boxShadow: "0px 0px 21px rgba(0, 0, 0, .2)",
                           borderRadius: "30px",
-                          cursor: "pointer",
+                          cursor: "pointer" ,
                         }}
                         draggable
                         onDragStart={(event) => handleDragStart(event, card.id)}
@@ -119,7 +119,7 @@ const KanbanBoard = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "flex-start",
-                            width: "100%",
+                            width: "100%", 
                           }}
                         >
                           <Card
@@ -135,10 +135,10 @@ const KanbanBoard = () => {
                           </span>
                           <DeleteOutlined
                             onClick={() => handleCardDelete(card)}
-                            style={{
-                              float: "right",
+                            style={{ 
                               position: "absolute",
                               margin: "0 78%",
+                              cursor:'pointer', 
                             }}
                           />
                         </div>
