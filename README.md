@@ -3,7 +3,9 @@
 
 Este repositório contém um projeto de um Kanban Board simples desenvolvido com React. O Kanban Board é uma ferramenta de gerenciamento de projetos que permite visualizar e organizar tarefas em diferentes estágios de progresso.
 
-![gif para o repo](https://github.com/matefs/react-kanban-simples/assets/30128774/3cb85e67-b652-4cf1-a63d-8bafb35f283e)
+![gif para o repo](https://github.com/matefs/react-kanban-simples/assets/30128774/3638face-6f7c-4465-8caa-ed20e29d8614)
+
+
 
 ## **Visão Geral**
 
