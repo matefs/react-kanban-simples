@@ -10,7 +10,7 @@ const { Title } = Typography;
 const KanbanBoard = () => {
   const [formAdicionarColuna] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [columnToEdit, setColumnToEdit ] = useState(null);
+  const [columnToEdit, setColumnToEdit] = useState(null);
   const [cardToEdit, setCardToEdit] = useState(null);
 
   const [columns, setColumns] = useState([
@@ -80,6 +80,13 @@ const KanbanBoard = () => {
   };
 
   const handleAddColumn = (values) => {
+    const columnExists = columns.some((coluna) => coluna.title === values.columnTitle);
+
+    if (columnExists) {
+    alert('Essa coluna já existe')
+    return; // Interrompe a execução das próximas funções
+    } 
+
     const newColumn = {
       id: Date.now(),
       title: values.columnTitle,
@@ -100,9 +107,9 @@ const KanbanBoard = () => {
     setColumns(updatedColumns);
   };
 
-  const handleCardEdit = (card,column) => {
+  const handleCardEdit = (card, column) => {
     setCardToEdit(card);
-    setColumnToEdit(column)
+    setColumnToEdit(column);
     setIsModalOpen(true);
   };
 
@@ -205,13 +212,23 @@ const KanbanBoard = () => {
                         <Card
                           key={card.id}
                           className="card"
-                          style={{ cursor: "pointer", width: "100%",   overflowY: 'auto', height: '4.9em'}}
+                          style={{
+                            cursor: "pointer",
+                            width: "100%",
+                            overflowY: "auto",
+                            height: "4.9em",
+                          }}
                           onClick={() => handleCardEdit(card, column)}
                         />
 
                         {
                           <span
-                            style={{ position: "absolute", padding: "20px", width: '50%',  wordWrap: 'break-word'}}
+                            style={{
+                              position: "absolute",
+                              padding: "20px",
+                              width: "50%",
+                              wordWrap: "break-word",
+                            }}
                             onClick={() => handleCardEdit(card, column)}
                           >
                             {" "}
@@ -225,20 +242,19 @@ const KanbanBoard = () => {
                             margin: "0 65%",
                             cursor: "pointer",
                             padding: "10px",
-                            display:'flex',
-                            justifyContent: 'space-between'
+                            display: "flex",
+                            justifyContent: "space-between",
                           }}
                         >
-                          <CaretUpOutlined 
-                          style={{padding:'20% 30%'}}
-                          onClick={() => moverCardTopo(column.id, card.id, 0)}
+                          <CaretUpOutlined
+                            style={{ padding: "20% 30%" }}
+                            onClick={() => moverCardTopo(column.id, card.id, 0)}
                           />
                           <DeleteOutlined
                             onClick={() => handleCardDelete(column.id, card.id)}
-                            style={{padding:'20% 20%'}}
+                            style={{ padding: "20% 20%" }}
                           />
                         </div>
-
                       </div>
                     </div>
                   ))}
@@ -259,7 +275,16 @@ const KanbanBoard = () => {
           form={formAdicionarColuna}
           style={{ marginLeft: "1.4%" }}
         >
-          <Form.Item name="columnTitle">
+          <Form.Item
+            name="columnTitle"
+            rules={[
+              {
+                required: true,
+                min: 3,
+                message: "O campo deve ter pelo menos 3 caracteres.",
+              },
+            ]}
+          >
             <Input
               placeholder="Digite o título da coluna"
               name="addColumn"
