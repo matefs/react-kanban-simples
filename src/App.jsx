@@ -3,7 +3,7 @@ import { Card, Col, Form, Input, Row, Button, Space } from "antd";
 import { Typography } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import ModalEditarCard from "./componentes/ModalEditarCard";
-import FormNovoCard from './componentes/FormNovoCard';
+import FormNovoCard from "./componentes/FormNovoCard";
 
 const { Title } = Typography;
 
@@ -82,24 +82,30 @@ const KanbanBoard = () => {
   };
 
   const deleteColumn = (columnId) => {
-  const updatedColumns = columns.filter((column) => column.id !== columnId);
-  setColumns(updatedColumns);
+    const updatedColumns = columns.filter((column) => column.id !== columnId);
+    setColumns(updatedColumns);
   };
-
 
   return (
     <>
       <Title>Quadro Kanban</Title>
       <Row gutter={16} className="kanban-board">
 
-        { columns.map((column) => (
+        {columns.map((column) => (
           <Col key={column.id} span={6}>
-
-            {column.id != 1 && column.id != 2 && column.id!=3 ? 
-            <DeleteOutlined 
-            onClick={() => deleteColumn(column.id)}
-            style={{position:'absolute',padding:'0% 5%' ,marginLeft:'79%' ,marginTop:'5.5%', zIndex:'1', cursor:'pointer'}}/>
-            : null}
+            {column.id != 1 && column.id != 2 && column.id != 3 ? (
+              <DeleteOutlined
+                onClick={() => deleteColumn(column.id)}
+                style={{
+                  position: "absolute",
+                  padding: "0% 5%",
+                  marginLeft: "79%",
+                  marginTop: "5.5%",
+                  zIndex: "1",
+                  cursor: "pointer",
+                }}
+              />
+            ) : null}
 
             <Card title={column.title} className="column">
               <div
@@ -121,7 +127,7 @@ const KanbanBoard = () => {
                         style={{
                           boxShadow: "0px 0px 21px rgba(0, 0, 0, .2)",
                           borderRadius: "30px",
-                          cursor: "pointer" ,
+                          cursor: "pointer",
                         }}
                         draggable
                         onDragStart={(event) => handleDragStart(event, card.id)}
@@ -132,7 +138,7 @@ const KanbanBoard = () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "flex-start",
-                            width: "100%", 
+                            width: "100%",
                           }}
                         >
                           <Card
@@ -148,11 +154,11 @@ const KanbanBoard = () => {
                           </span>
                           <DeleteOutlined
                             onClick={() => handleCardDelete(card)}
-                            style={{ 
+                            style={{
                               position: "absolute",
                               margin: "0 75%",
-                              cursor:'pointer', 
-                              padding: '10px',
+                              cursor: "pointer",
+                              padding: "10px",
                             }}
                           />
                         </div>
@@ -160,8 +166,10 @@ const KanbanBoard = () => {
                     ))}
                 </Space>
 
-              <FormNovoCard handleFormSubmit={handleFormSubmit} columnTitle={column.title}/>
-
+                <FormNovoCard
+                  handleFormSubmit={handleFormSubmit}
+                  columnTitle={column.title}
+                />
               </div>
             </Card>
           </Col>
@@ -174,13 +182,16 @@ const KanbanBoard = () => {
           style={{ marginLeft: "1.4%" }}
         >
           <Form.Item name="columnTitle">
-            <Input placeholder="Digite o título da coluna" name="addColumn" maxLength={35} />
+            <Input
+              placeholder="Digite o título da coluna"
+              name="addColumn"
+              maxLength={35}
+            />
           </Form.Item>
           <Button type="link" htmlType="submit">
             Adicionar Coluna
           </Button>
         </Form>
-      
       </Row>
 
       <ModalEditarCard
