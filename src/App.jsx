@@ -35,19 +35,33 @@ const handleDragOver = (event) => {
 };
 
 
-const handleDrop = (event, column) => {
+function handleDrop(event, column) {
+  event.preventDefault();
+
   const cardId = Number(event.dataTransfer.getData("text/plain"));
-  const updatedColumns = columns.map((col) => {
+
+  // Verificar se o card já está na coluna de destino
+  const isInDestinationColumn = columns.some(col => col.title === column && col.cards.some(card => card.id === cardId));
+
+  if (isInDestinationColumn) {
+    console.log("O card já está na coluna de destino.");
+    return;
+  }
+
+  const updatedColumns = columns.map(col => {
     if (col.title === column) {
-      const updatedCards = [...col.cards, { id: cardId, title: `Card ${cardId}` }];
+      const cardToMove = columns.find(col => col.cards.some(card => card.id === cardId)).cards.find(card => card.id === cardId);
+      const updatedCards = [...col.cards, cardToMove];
       return { ...col, cards: updatedCards };
     } else {
-      const updatedCards = col.cards.filter((card) => card.id !== cardId);
+      const updatedCards = col.cards.filter(card => card.id !== cardId);
       return { ...col, cards: updatedCards };
     }
   });
+
   setColumns(updatedColumns);
-};
+}
+
 
 
 const handleFormSubmit = (values, column) => {
@@ -109,6 +123,8 @@ const handleCancel = () => {
     const updatedColumns = columns.filter((column) => column.id !== columnId);
     setColumns(updatedColumns);
   };
+
+  
 
   return (
     <>
