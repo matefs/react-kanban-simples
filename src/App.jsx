@@ -81,6 +81,11 @@ const KanbanBoard = () => {
     setIsModalOpen(false);
   };
 
+  const deleteColumn = (columnId) => {
+  const updatedColumns = columns.filter((column) => column.id !== columnId);
+  setColumns(updatedColumns);
+  };
+
 
   return (
     <>
@@ -89,6 +94,13 @@ const KanbanBoard = () => {
 
         { columns.map((column) => (
           <Col key={column.id} span={6}>
+
+            {column.id != 1 && column.id != 2 && column.id!=3 ? 
+            <DeleteOutlined 
+            onClick={() => deleteColumn(column.id)}
+            style={{position:'absolute',padding:'0% 5%' ,marginLeft:'79%' ,marginTop:'5.5%', zIndex:'1', cursor:'pointer'}}/>
+            : null}
+
             <Card title={column.title} className="column">
               <div
                 className="card-container"
