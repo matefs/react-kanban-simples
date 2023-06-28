@@ -12,72 +12,96 @@ const KanbanBoard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cardToEdit, setCardToEdit] = useState(null);
 
-  const [cards, setCards] = useState([
-    { id: 1, title: "Card 1", column: "Para Fazer" },
-    { id: 2, title: "Card 2", column: "Para Fazer" },
-    { id: 3, title: "Card 3", column: "Fazendo" },
-    { id: 4, title: "Card 4", column: "Feito" },
-  ]);
-
   const [columns, setColumns] = useState([
-    { id: 1, title: "Para Fazer" },
-    { id: 2, title: "Fazendo" },
-    { id: 3, title: "Feito" },
-  ]);
+  { id: 1, title: "Para Fazer", cards: [
+    { id: 1, title: "Card 1" },
+    { id: 2, title: "Card 2" }
+  ]},
+  { id: 2, title: "Fazendo", cards: [
+    { id: 3, title: "Card 3" }
+  ]},
+  { id: 3, title: "Feito", cards: [
+    { id: 4, title: "Card 4" }
+  ]}
+]);
 
-  const handleDragStart = (event, cardId) => {
-    event.dataTransfer.setData("text/plain", cardId);
+ 
+const handleDragStart = (event, cardId) => {
+  event.dataTransfer.setData("text/plain", cardId.toString());
+};
+
+const handleDragOver = (event) => {
+  event.preventDefault();
+};
+
+
+const handleDrop = (event, column) => {
+  const cardId = Number(event.dataTransfer.getData("text/plain"));
+  const updatedColumns = columns.map((col) => {
+    if (col.title === column) {
+      const updatedCards = [...col.cards, { id: cardId, title: `Card ${cardId}` }];
+      return { ...col, cards: updatedCards };
+    } else {
+      const updatedCards = col.cards.filter((card) => card.id !== cardId);
+      return { ...col, cards: updatedCards };
+    }
+  });
+  setColumns(updatedColumns);
+};
+
+
+const handleFormSubmit = (values, column) => {
+  const newCardId = Date.now();
+  const newCard = { id: newCardId, title: values.cardTitle };
+  const updatedColumns = columns.map((col) => {
+    if (col.title === column) {
+      const updatedCards = [...col.cards, newCard];
+      return { ...col, cards: updatedCards };
+    }
+    return col;
+  });
+  setColumns(updatedColumns);
+};
+
+const handleAddColumn = (values) => {
+  const newColumn = {
+    id: Date.now(),
+    title: values.columnTitle,
+    cards: [],
   };
+  setColumns([...columns, newColumn]);
+  formAdicionarColuna.resetFields();
+};
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
+const handleCardDelete = (columnId, cardId) => {
+  const updatedColumns = columns.map((col) => {
+    if (col.id === columnId) {
+      const updatedCards = col.cards.filter((card) => card.id !== cardId);
+      return { ...col, cards: updatedCards };
+    }
+    return col;
+  });
+  setColumns(updatedColumns);
+};
 
-  const handleDrop = (event, column) => {
-    const cardId = event.dataTransfer.getData("text/plain");
-    const updatedCards = cards.map((card) =>
-      card.id === Number(cardId) ? { ...card, column } : card
+const handleCardEdit = (card) => {
+  setCardToEdit(card);
+  setIsModalOpen(true);
+};
+
+const handleOk = (cardId, newTitle) => {
+  const updatedColumns = columns.map((col) => {
+    const updatedCards = col.cards.map((card) =>
+      card.id === cardId ? { ...card, title: newTitle } : card
     );
-    setCards(updatedCards);
-  };
+    return { ...col, cards: updatedCards };
+  });
+  setColumns(updatedColumns);
+  setIsModalOpen(false);
+};
 
-  const handleFormSubmit = (values, column) => {
-    const newCard = {
-      id: Date.now(),
-      title: values.cardTitle,
-      column: column,
-    };
-    setCards([...cards, newCard]);
-  };
 
-  const handleAddColumn = (values) => {
-    const newColumn = {
-      id: Date.now(),
-      title: values.columnTitle,
-    };
-    setColumns([...columns, newColumn]);
-    formAdicionarColuna.resetFields();
-  };
-
-  const handleCardDelete = (values) => {
-    setCards(cards.filter((card) => card != values));
-  };
-
-  const handleCardEdit = (values) => {
-    setCardToEdit(values);
-    setIsModalOpen(true);
-  };
-
-  const handleOk = (cardId, newTitle) => {
-    setCards((cards) =>
-      cards.map((card) =>
-        card.id === cardId ? { ...card, title: newTitle } : card
-      )
-    );
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
+const handleCancel = () => {
     setIsModalOpen(false);
   };
 
@@ -91,89 +115,88 @@ const KanbanBoard = () => {
       <Title>Quadro Kanban</Title>
       <Row gutter={16} className="kanban-board">
 
-        {columns.map((column) => (
-          <Col key={column.id} span={6}>
-            {column.id != 1 && column.id != 2 && column.id != 3 ? (
-              <DeleteOutlined
-                onClick={() => deleteColumn(column.id)}
-                style={{
-                  position: "absolute",
-                  padding: "0% 5%",
-                  marginLeft: "79%",
-                  marginTop: "5.5%",
-                  zIndex: "1",
-                  cursor: "pointer",
-                }}
-              />
-            ) : null}
+         {columns.map((column) => (
+  <Col key={column.id} span={6}>
+    {column.id !== 1 && column.id !== 2 && column.id !== 3 ? (
+      <DeleteOutlined
+        onClick={() => deleteColumn(column.id)}
+        style={{
+          position: "absolute",
+          padding: "0% 5%",
+          marginLeft: "79%",
+          marginTop: "5.5%",
+          zIndex: "1",
+          cursor: "pointer",
+        }}
+      />
+    ) : null}
 
-            <Card title={column.title} className="column">
+    <Card title={column.title} className="column">
+      <div
+        className="card-container"
+        onDragOver={handleDragOver}
+        onDrop={(event) => handleDrop(event, column.title)}
+      >
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{ display: "flex" }}
+        >
+          
+          {column.cards.map((card) => (
+            <div
+              key={card.id}
+              style={{
+                boxShadow: "0px 0px 21px rgba(0, 0, 0, .2)",
+                borderRadius: "30px",
+                cursor: "pointer",
+              }}
+              draggable
+              onDragStart={(event) => handleDragStart(event, card.id)}
+            >
               <div
-                className="card-container"
-                onDragOver={handleDragOver}
-                onDrop={(event) => handleDrop(event, column.title)}
+                className="card-wrapper"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  width: "100%",
+                }}
               >
-                <Space
-                  direction="vertical"
-                  size="middle"
-                  style={{ display: "flex" }}
+                <Card
+                  key={card.id}
+                  className="card"
+                  style={{ cursor: "pointer", width: "100%" }}
+                  onClick={() => handleCardEdit(card)}
+                />
+                <span
+                  style={{ position: "absolute", padding: "20px" }}
                 >
-                  {cards
-                    .filter((card) => card.column === column.title)
-
-                    .map((card, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          boxShadow: "0px 0px 21px rgba(0, 0, 0, .2)",
-                          borderRadius: "30px",
-                          cursor: "pointer",
-                        }}
-                        draggable
-                        onDragStart={(event) => handleDragStart(event, card.id)}
-                      >
-                        <div
-                          className="card-wrapper"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                            width: "100%",
-                          }}
-                        >
-                          <Card
-                            key={card.id}
-                            className="card"
-                            style={{ cursor: "pointer", width: "100%" }}
-                            onClick={() => handleCardEdit(card)}
-                          />
-                          <span
-                            style={{ position: "absolute", padding: "20px" }}
-                          >
-                            {card.title}
-                          </span>
-                          <DeleteOutlined
-                            onClick={() => handleCardDelete(card)}
-                            style={{
-                              position: "absolute",
-                              margin: "0 75%",
-                              cursor: "pointer",
-                              padding: "10px",
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                </Space>
-
-                <FormNovoCard
-                  handleFormSubmit={handleFormSubmit}
-                  columnTitle={column.title}
+                  {card.title}
+                </span>
+                <DeleteOutlined
+                  onClick={() => handleCardDelete(column.id,card.id)}
+                  style={{
+                    position: "absolute",
+                    margin: "0 75%",
+                    cursor: "pointer",
+                    padding: "10px",
+                  }}
                 />
               </div>
-            </Card>
-          </Col>
-        ))}
+            </div>
+          ))}
+        </Space>
+
+        <FormNovoCard
+          handleFormSubmit={handleFormSubmit}
+          columnTitle={column.title}
+        />
+      </div>
+    </Card>
+  </Col>
+))}
+
 
         <Form
           onFinish={handleAddColumn}
