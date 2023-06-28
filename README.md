@@ -5,7 +5,7 @@ Este repositório contém um projeto de um Kanban Board simples desenvolvido com
 
 ![gif para o repo](https://github.com/matefs/react-kanban-simples/assets/30128774/3638face-6f7c-4465-8caa-ed20e29d8614)
 
-
+- Acesse online: https://resilient-griffin-10769e.netlify.app/
 
 ## **Visão Geral**
 
